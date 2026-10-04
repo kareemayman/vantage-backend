@@ -1,2 +1,2 @@
-# natours-backend
-Backend for Natours project.
+# vantage-backend
+Backend for Vantage - Tour Booking Platform project.
