@@ -15,10 +15,12 @@ const DB = process.env.DATABASE_CONNECTION_STRING.replace(
   process.env.MONGODB_PASSWORD,
 )
 
-mongoose.connect(DB).then((con) => console.log("Connected to MongoDB Atlas"))
+mongoose.connect(DB).then(() => console.log("Connected to MongoDB Atlas"))
 
-const server = app.listen(process.env.PORT || 3001, () => {
-  console.log("Backend server is running on port 3001")
+const port = process.env.PORT || 3001
+
+const server = app.listen(port, () => {
+  console.log(`Backend server is running on port ${port}`)
 })
 
 process.on("unhandledRejection", (err) => {

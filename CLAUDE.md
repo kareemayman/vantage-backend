@@ -24,10 +24,12 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 
 ### Phase 1: before the frontend can show real data
 
-- [ ] **0. Port clash.** The API listens on 3000, which is also Next.js's default dev port.
+- [x] **0. Port clash.** The API listens on 3000, which is also Next.js's default dev port. Fixed: the API runs on 3001, and the startup log prints the port it actually uses.
   - Where: `config.env`, `server.js`.
   - Direction: give the API its own port, and check that the startup log reports the real one.
 - [ ] **1. Images don't exist anywhere.** `imageCover`, `images`, and `photo` are bare filenames (`tour-2-cover.jpg`) that nothing serves.
+  - Done (tours): `imageCover` and `images` hold public IDs (`the-sea-explorer-cover`) in `tours.json` and in the database.
+  - Left (users): every `photo` is still a filename (`user-1.jpg`), so avatars can't render yet. Also open one tour ID on Cloudinary to confirm it exists. Claude couldn't check, because neither app has Cloudinary settings yet.
   - Why: the frontend can't render a single tour card or avatar.
   - Agreed with the frontend: images live on Cloudinary, and the API stores Cloudinary **public IDs** (e.g. `vantage/tours/the-sea-explorer/cover`), not full URLs. The frontend builds sized URLs from them.
   - Direction: for the seed data, a one-off script with the Cloudinary Node SDK is enough. Upload endpoints for users and admins come later (phase 3), and we'll design that flow together because it touches both apps.
