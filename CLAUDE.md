@@ -31,7 +31,7 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
   - Why: the frontend can't render a single tour card or avatar.
   - Agreed with the frontend: images live on Cloudinary, and the API stores Cloudinary **public IDs** (e.g. `vantage/tours/the-sea-explorer/cover`), not full URLs. The frontend builds sized URLs from them.
   - Direction: for the seed data, a one-off script with the Cloudinary Node SDK is enough. Upload endpoints for users and admins come later (phase 3), and we'll design that flow together because it touches both apps.
-- [ ] **2. Reading reviews requires login.**
+- [x] **2. Reading reviews requires login.** Fixed: both review lists are public; a single review (`/reviews/:id`) still needs a login.
   - Why: logged-out visitors can't see any reviews: not on a tour page, and not on the homepage, whose "Postcards from travelers" shows three reviews from `GET /reviews` (each with its tour attached, for the tour's name and where it starts). The homepage types them in until this is fixed.
   - Where: `routes/reviewRoutes.js`. Look at where `protect` sits relative to each route.
   - Direction: which review routes actually need to know who the user is? An alternative worth reading about: Mongoose "virtual populate" (covered in the course), to include reviews in `GET /tours/:id`.
@@ -64,6 +64,11 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
   - Where: `updateReview` and `deleteReview` use the generic factory handlers.
   - Direction: how would the handler know who owns the review? Should admins be treated differently? And which fields should a user be allowed to change on a review at all?
 - [ ] **9. Reviews don't return `createdAt`**, so the UI can't show "2 weeks ago". Where: `models/reviewModel.js`.
+- [ ] **9b. Deleting a tour leaves its reviews behind.** They stay in the database, and `GET /reviews` sends them with `tour: null`. (Two old test reviews were like this; Claude deleted them on 2026-10-22.)
+  - Why: every page that lists reviews (the homepage, a user's own reviews) has to skip them, or it breaks on `review.tour.name`.
+  - Where: `deleteTour` in `controllers/tourController.js` uses the factory's `deleteOne`, which only runs `findByIdAndDelete`.
+  - Direction: where should "also delete this tour's reviews" live: in the controller, or in a middleware on the tour model? If middleware, look up which kind of hook `findByIdAndDelete` triggers (query or document middleware), and how that hook can know which tour was deleted. Bookings (item 10) will raise the same question, plus a new one: should a tour with bookings be deletable at all?
+  - Related: users. `deleteMe` only sets `active: false`, and the user find-hook hides inactive users, so their reviews come back with `user: null` too (an admin's `deleteUser` does the same, for good). Should those reviews stay, disappear, or show as written by "a former traveler"?
 
 ### Phase 5: bookings
 

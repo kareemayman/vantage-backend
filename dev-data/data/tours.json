@@ -8,7 +8,7 @@
     },
     "ratingsAverage": 4.8,
     "ratingsQuantity": 6,
-    "images": ["tour-2-1.jpg", "tour-2-2.jpg", "tour-2-3.jpg"],
+    "images": ["the-sea-explorer-1", "the-sea-explorer-2", "the-sea-explorer-3"],
     "startDates": [
       "2021-06-19T09:00:00.000Z",
       "2021-07-20T09:00:00.000Z",
@@ -22,8 +22,8 @@
     "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a1f4e2f8fb814b56fa185"],
     "price": 497,
     "summary": "Exploring the jaw-dropping US east coast by foot and by boat",
-    "description": "Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nIrure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "imageCover": "tour-2-cover.jpg",
+    "description": "Seven days of sun, sea and salty hair. We start on the sand at Lummus Park Beach in Miami, then make our way down the Florida Keys, one island at a time, by foot and by boat.\nExpect clear blue water, lazy beach days in Islamorada and on Sombrero Beach, and a sunset at the very end of the road in Key West. Bring sunscreen. Lots of it.",
+    "imageCover": "the-sea-explorer-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2959",
@@ -64,7 +64,7 @@
     },
     "ratingsAverage": 5,
     "ratingsQuantity": 9,
-    "images": ["tour-1-1.jpg", "tour-1-2.jpg", "tour-1-3.jpg"],
+    "images": ["the-forest-hiker-1", "the-forest-hiker-2", "the-forest-hiker-3"],
     "startDates": [
       "2021-04-25T09:00:00.000Z",
       "2021-07-20T09:00:00.000Z",
@@ -82,8 +82,8 @@
     ],
     "price": 397,
     "summary": "Breathtaking hike through the Canadian Banff National Park",
-    "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "imageCover": "tour-1-cover.jpg",
+    "description": "Five days of tall trees, cold lakes and fresh mountain air. We start in Banff and walk easy, well-marked trails, with plenty of stops for snacks and photos.\nAlong the way we visit Jasper and Glacier National Parks, where the lakes are a shade of blue you won't believe until you see it. No hiking experience needed, just comfy shoes.",
+    "imageCover": "the-forest-hiker-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2954",
@@ -117,7 +117,7 @@
     },
     "ratingsAverage": 4.5,
     "ratingsQuantity": 6,
-    "images": ["tour-3-1.jpg", "tour-3-2.jpg", "tour-3-3.jpg"],
+    "images": ["the-snow-adventurer-1", "the-snow-adventurer-2", "the-snow-adventurer-3"],
     "startDates": [
       "2022-01-05T10:00:00.000Z",
       "2022-02-12T10:00:00.000Z",
@@ -135,8 +135,8 @@
     ],
     "price": 997,
     "summary": "Exciting adventure in the snow with snowboarding and skiing",
-    "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!\nDolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipisicing elit!",
-    "imageCover": "tour-3-cover.jpg",
+    "description": "Too much sun? Trade it for snow. In four days we ski and snowboard the slopes of Aspen Highlands and Beaver Creek, with a guide who knows every run.\nThis one is for people who already feel at home on skis or a board: the slopes are steep and the days are full. Hot chocolate at the end of each day is not optional.",
+    "imageCover": "the-snow-adventurer-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c295c",
@@ -163,7 +163,7 @@
     },
     "ratingsAverage": 4.7,
     "ratingsQuantity": 7,
-    "images": ["tour-5-1.jpg", "tour-5-2.jpg", "tour-5-3.jpg"],
+    "images": ["the-park-camper-1", "the-park-camper-2", "the-park-camper-3"],
     "startDates": [
       "2021-08-05T09:00:00.000Z",
       "2022-03-20T10:00:00.000Z",
@@ -181,8 +181,8 @@
     ],
     "price": 1497,
     "summary": "Breathing in Nature in America's most spectacular National Parks",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!",
-    "imageCover": "tour-5-cover.jpg",
+    "description": "Ten days, four national parks, and a sky full of stars over your tent. We leave the bright lights of Las Vegas behind and head straight for the red cliffs of Zion.\nNext come the glowing walls of Antelope Canyon, the giant Grand Canyon, and the funny-looking trees of Joshua Tree. We camp along the way, so you fall asleep with nature all around you.",
+    "imageCover": "the-park-camper-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2965",
@@ -223,7 +223,7 @@
     },
     "ratingsAverage": 4.6,
     "ratingsQuantity": 5,
-    "images": ["tour-4-1.jpg", "tour-4-2.jpg", "tour-4-3.jpg"],
+    "images": ["the-city-wanderer-1", "the-city-wanderer-2", "the-city-wanderer-3"],
     "startDates": [
       "2021-03-11T10:00:00.000Z",
       "2021-05-02T09:00:00.000Z",
@@ -237,8 +237,8 @@
     "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a201e2f8fb814b56fa186"],
     "price": 1197,
     "summary": "Living the life of Wanderlust in the US' most beatiful cities",
-    "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat lorem ipsum dolor sit amet.\nConsectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat!",
-    "imageCover": "tour-4-cover.jpg",
+    "description": "Nine days, three big cities, zero boring moments. We start in New York with bagels, busy streets and city views from way up high.\nThen we head west to the sunny beaches of Los Angeles and the steep hills and cable cars of San Francisco. The pace is easy, the walks are comfy, and there's plenty of free time to explore on your own.",
+    "imageCover": "the-city-wanderer-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2960",
@@ -272,7 +272,7 @@
     },
     "ratingsAverage": 3.9,
     "ratingsQuantity": 7,
-    "images": ["tour-6-1.jpg", "tour-6-2.jpg", "tour-6-3.jpg"],
+    "images": ["the-sports-lover-1", "the-sports-lover-2", "the-sports-lover-3"],
     "startDates": [
       "2021-07-19T09:00:00.000Z",
       "2021-09-06T09:00:00.000Z",
@@ -290,8 +290,8 @@
     ],
     "price": 2997,
     "summary": "Surfing, skating, parajumping, rock climbing and more, all in one tour",
-    "description": "Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\nVoluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur!",
-    "imageCover": "tour-6-cover.jpg",
+    "description": "Two weeks of non-stop action in California. We surf at Point Dume, skate at Venice Skate Park, jump out of a plane over San Diego (with a parachute, don't worry), and raft down the Kern River.\nThen we finish by climbing the giant granite walls of Yosemite. It's a small group with big energy, so come fit and ready to try new things, even the scary ones.",
+    "imageCover": "the-sports-lover-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c296b",
@@ -339,7 +339,7 @@
     },
     "ratingsAverage": 4.8,
     "ratingsQuantity": 6,
-    "images": ["tour-8-1.jpg", "tour-8-2.jpg", "tour-8-3.jpg"],
+    "images": ["the-star-gazer-1", "the-star-gazer-2", "the-star-gazer-3"],
     "startDates": [
       "2021-03-23T10:00:00.000Z",
       "2021-10-25T09:00:00.000Z",
@@ -353,8 +353,8 @@
     "guides": ["5c8a21d02f8fb814b56fa189", "5c8a1f292f8fb814b56fa184"],
     "price": 2997,
     "summary": "The most remote and stunningly beautiful places for seeing the night sky",
-    "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "imageCover": "tour-8-cover.jpg",
+    "description": "Nine days in some of the darkest places in America, which means some of the brightest stars you'll ever see. We start in Utah at Natural Bridges, the world's first Dark Sky Park.\nBy day we explore Horseshoe Bend and Death Valley. By night we lie back on blankets, look up, and count shooting stars. Bring a warm jacket: the desert gets cold after dark.",
+    "imageCover": "the-star-gazer-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2973",
@@ -388,7 +388,7 @@
     },
     "ratingsAverage": 4.7,
     "ratingsQuantity": 7,
-    "images": ["tour-9-1.jpg", "tour-9-2.jpg", "tour-9-3.jpg"],
+    "images": ["the-northern-lights-1", "the-northern-lights-2", "the-northern-lights-3"],
     "startDates": [
       "2021-12-16T10:00:00.000Z",
       "2022-01-16T10:00:00.000Z",
@@ -406,8 +406,8 @@
     ],
     "price": 1497,
     "summary": "Enjoy the Northern Lights in one of the best places in the world",
-    "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!\nDolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipisicing elit!",
-    "imageCover": "tour-9-cover.jpg",
+    "description": "Three days in Yellowknife, far up in northern Canada and one of the best places on Earth to see the northern lights.\nDays are slow and cozy: warm drinks, short walks, maybe a nap. Nights are for watching the sky glow green and dance above you. The lights do what they want, but here you get some of the best chances anywhere. Dress warm, it's worth it.",
+    "imageCover": "the-northern-lights-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c2975",
@@ -427,7 +427,7 @@
     },
     "ratingsAverage": 4.4,
     "ratingsQuantity": 7,
-    "images": ["tour-7-1.jpg", "tour-7-2.jpg", "tour-7-3.jpg"],
+    "images": ["the-wine-taster-1", "the-wine-taster-2", "the-wine-taster-3"],
     "startDates": [
       "2021-02-12T10:00:00.000Z",
       "2021-04-14T09:00:00.000Z",
@@ -441,8 +441,8 @@
     "guides": ["5c8a22c62f8fb814b56fa18b", "5c8a23412f8fb814b56fa18c"],
     "price": 1997,
     "summary": "Exquisite wines, scenic views, exclusive barrel tastings,  and much more",
-    "description": "Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nIrure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    "imageCover": "tour-7-cover.jpg",
+    "description": "Five slow, sunny days in Napa Valley, California's wine country. We visit three famous wineries, Beringer, Clos Pegase and Raymond, and taste wine straight from the barrel.\nBetween tastings there's good food, green hills covered in grapes, and lots of time to sit back and enjoy the view. Small group, easy pace, and nobody has to drive.",
+    "imageCover": "the-wine-taster-cover",
     "locations": [
       {
         "_id": "5c88fa8cf4afda39709c296f",
