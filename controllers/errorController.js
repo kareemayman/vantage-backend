@@ -44,16 +44,15 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
     sendErrDev(err, res)
   } else if (process.env.NODE_ENV === "production") {
-    let error = { ...err }
     if (err.name === "CastError") {
-      error = handleCastErrorDB(err)
+      err = handleCastErrorDB(err)
     }
     if (err.code === 11000) {
-      error = handleDuplicateFieldsDB(err)
+      err = handleDuplicateFieldsDB(err)
     }
     if (err.name === "ValidationError") {
-      error = handleValidationError(err)
+      err = handleValidationError(err)
     }
-    sendErrProd(error, res)
+    sendErrProd(err, res)
   }
 }

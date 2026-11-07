@@ -27,9 +27,7 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 - [x] **0. Port clash.** The API listens on 3000, which is also Next.js's default dev port. Fixed: the API runs on 3001, and the startup log prints the port it actually uses.
   - Where: `config.env`, `server.js`.
   - Direction: give the API its own port, and check that the startup log reports the real one.
-- [ ] **1. Images don't exist anywhere.** `imageCover`, `images`, and `photo` are bare filenames (`tour-2-cover.jpg`) that nothing serves.
-  - Done (tours): `imageCover` and `images` hold public IDs (`the-sea-explorer-cover`) in `tours.json` and in the database.
-  - Left (users): every `photo` is still a filename (`user-1.jpg`), so avatars can't render yet. Also open one tour ID on Cloudinary to confirm it exists. Claude couldn't check, because neither app has Cloudinary settings yet.
+- [x] **1. Images don't exist anywhere.** `imageCover`, `images`, and `photo` are bare filenames (`tour-2-cover.jpg`) that nothing serves. Fixed for the seed data: tours and users hold Cloudinary public IDs (`the-sea-explorer-cover`, `jonas-schmedtmann`) in the JSON files and in the database. User photos are set by `dev-data/data/updateUserPhotos.js`. Upload endpoints are still to come (item 7).
   - Why: the frontend can't render a single tour card or avatar.
   - Agreed with the frontend: images live on Cloudinary, and the API stores Cloudinary **public IDs** (e.g. `vantage/tours/the-sea-explorer/cover`), not full URLs. The frontend builds sized URLs from them.
   - Direction: for the seed data, a one-off script with the Cloudinary Node SDK is enough. Upload endpoints for users and admins come later (phase 3), and we'll design that flow together because it touches both apps.
@@ -40,14 +38,24 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 - [ ] **3. Production errors lose their message.** In production every AppError arrives as `{"status":"fail"}`, so the frontend's login form would show a blank error.
   - Where: the production branch of `controllers/errorController.js`.
   - Direction: in the Node REPL, create an `AppError`, spread it into a new object, and log the result. What's missing, and why? (MDN: "enumerability of properties".)
-- [ ] **4. Seed data refresh (decided).** Every `startDates` value is in 2021, so every tour looks expired, and the text is lorem ipsum: the tour descriptions and every review (the homepage shows the design's quotes in their place for now).
-  - Where: `dev-data/data/*.json`.
-  - Direction: future dates, real destinations and descriptions that fit Vantage's summer/travel identity, and on-theme photos (which feed item 1). Keep the model validators in mind (tour names are 10–40 characters, etc.).
+- [ ] **4. Seed data refresh (decided).** Every `startDates` value is in the past (2021 to early 2023), so every tour looks expired.
+  - Done (2026-10-22): real tour descriptions and review texts, and photos (item 1), in the JSON files and the database. `dev-data/data/importData2.js` copies the descriptions and review texts from the files into the database without touching anything else.
+  - Left: future start dates. They matter once the frontend shows dates (tour cards and the tour page, then bookings).
+  - Where: `dev-data/data/tours.json`, then the database. `importData2.js` only copies descriptions and review texts, so think about how to get new dates in without wiping anything.
 - [ ] **4b. The tour stats leave tours out.** `GET /tours/stats` only counts tours rated 4.5 or more, and its `avgRating` is an average of each tour's average.
   - Why: the homepage's "By the numbers" shows these as the site's totals: every tour, every review, and the average rating across all of them. With the seed data, The Sports Lover (3.9) drops out of all three, so the counts come up short and the average looks better than it really is. And a tour with 3 reviews pulls the average as hard as one with 30.
   - Where: `getTourStats` in `controllers/tourController.js`.
   - Direction: which stage decides which tours get counted, and does this stat need it? (The course used it for "top tours" stats.) For the average: if you had every single review in front of you, how would you average them, and what two totals would you need from each tour to get the same result? Then read about adding a pipeline stage after `$group` that works with its results. Optional: the homepage also lists where the tours start ("Miami, Banff and Utah"); look for a `$group` accumulator that collects unique values. Small one: what does `$sort` do when there's only one group?
   - Agreed with the frontend: `data.stats[0]` keeps `toursCount`, `totalRatings` and `avgRating` (the frontend's `TourStats` type in `src/lib/tours.ts`).
+
+### Phase 2: the tour page
+
+- [ ] **4c. A tour's page takes two requests, one after the other.** (Kareem's call, 2026-11-05.) The frontend's tour page (`/tours/the-sea-explorer`) asks `GET /tours?slug=the-sea-explorer` for the tour, then `GET /tours/:id/reviews` for its reviews. The second has to wait for the first, because it needs the tour's `_id`.
+  - Why: two round trips where one would do, and each one can hit Render's 30–60 s wake-up. The frontend also has to dig one tour out of a list (`data.docs[0]`), and "no such tour" arrives as an empty list with a 200 instead of a 404.
+  - Where: `getSingleTour` in `controllers/tourController.js` (the factory's `getOne`, which already accepts populate options), `routes/tourRoutes.js`, `models/tourModel.js`.
+  - Direction, the reviews: a tour doesn't store its reviews; each review points to its tour. So how can a tour `populate` something it has no field for? Look up Mongoose's "virtual populate". Then: should every tour query fill in its reviews, or only the one-tour request? (Think about `GET /tours`, which lists every tour.) And which review fields does a tour's page need?
+  - Direction, the slug (recommended): the frontend's URLs use slugs, not ids. Why not accept a slug on `/:id`? How would the handler tell an id from a slug? A separate path avoids the question. Does the factory's `getOne` fit (it uses `findById`), or does this need its own handler? The `slug` field is already indexed (`tourSchema.index({ slug: 1 })`). Route order matters too: which routes could swallow the new path?
+  - Agreed with the frontend: `GET /tours/slug/:slug` answers with one tour as `data.doc`, with its guides and its reviews (each review with the traveler's `name` and `photo`, like `GET /tours/:tourId/reviews` sends them today), and a 404 for an unknown slug. Keep `GET /tours/:tourId/reviews` as it is: the reviews UI (phase 4) can use it.
 
 ### Phase 3: before the auth and account pages
 
@@ -91,7 +99,8 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 - [ ] **14. `AppError` is used but never imported** in `controllers/tourController.js`. What happens when someone calls a geo endpoint without coordinates?
 - [ ] **15. Guide emails are public.** Every tour response includes its guides' email addresses. Where: the `populate` in `models/tourModel.js`. Which fields does a public visitor actually need?
 - [ ] **16. Login responds with 201.** What does 201 mean, and is anything created on login?
-- [ ] **17. (Optional) Consistent responses.** Payload keys vary (`data.docs`, `data.doc`, bare `data`, `data.user`, and `"success"` vs `"Success"`). One convention makes the frontend simpler. Pagination would also benefit from a total count, and a `GET /tours/slug/:slug` endpoint (today the frontend filters with `?slug=`).
+- [ ] **16b. Some responses say `"Success"`, every other one `"success"`.** Where: `updateMe`, `deleteMe` and the `createUser` stub in `controllers/userController.js`. Nothing breaks today, because the frontend checks the HTTP status (`res.ok`), not this field; it's about one spelling everywhere. Bonus question: `deleteMe` answers with a 204. What does the client actually receive from a 204, body included? (Look up what Express does with a body on 204.)
+- [ ] **17. (Optional) Consistent responses.** Payload keys vary (`data.docs`, `data.doc`, bare `data`, `data.user`; the `status` spelling is 16b). One convention makes the frontend simpler. Pagination would also benefit from a total count. (The slug endpoint that used to be here is now item 4c.)
 - [ ] **18. (Optional) Forgot-password reveals which emails have accounts** ("There's no user with that email address!"). Look up "user enumeration".
 - [ ] **19. (Optional) The API's `jwt` cookie is now unused.** The frontend stores the token itself (the BFF pattern), so the cookie is harmless but dead code.
 
