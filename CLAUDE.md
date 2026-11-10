@@ -17,6 +17,7 @@ This is Kareem's first Express/Mongoose project, written by hand as practice. **
 
 - `npm run dev`: nodemon in development mode (port comes from `config.env`).
 - `node dev-data/data/importData.js`: **deletes** all tours, users, and reviews, then re-imports the seed JSON. Run it from this folder (it reads `./config.env`).
+- `node dev-data/data/importDates.js`: copies each tour's `startDates` from `tours.json` into the database and changes nothing else. Same folder rule.
 
 ## Fix checklist
 
@@ -35,13 +36,13 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
   - Why: logged-out visitors can't see any reviews: not on a tour page, and not on the homepage, whose "Postcards from travelers" shows three reviews from `GET /reviews` (each with its tour attached, for the tour's name and where it starts). The homepage types them in until this is fixed.
   - Where: `routes/reviewRoutes.js`. Look at where `protect` sits relative to each route.
   - Direction: which review routes actually need to know who the user is? An alternative worth reading about: Mongoose "virtual populate" (covered in the course), to include reviews in `GET /tours/:id`.
-- [ ] **3. Production errors lose their message.** In production every AppError arrives as `{"status":"fail"}`, so the frontend's login form would show a blank error.
+- [x] **3. Production errors lose their message.** In production every AppError arrived as `{"status":"fail"}`, so the frontend's login form would show a blank error. Fixed: the production branch sends the `AppError` itself instead of a `{ ...err }` copy, which dropped `message` (it isn't enumerable). Token errors already arrive as 401 `AppError`s from `protect`.
   - Where: the production branch of `controllers/errorController.js`.
   - Direction: in the Node REPL, create an `AppError`, spread it into a new object, and log the result. What's missing, and why? (MDN: "enumerability of properties".)
-- [ ] **4. Seed data refresh (decided).** Every `startDates` value is in the past (2021 to early 2023), so every tour looks expired.
+- [x] **4. Seed data refresh (decided).** Every `startDates` value was in the past (2021 to early 2023), so every tour looked expired.
   - Done (2026-10-22): real tour descriptions and review texts, and photos (item 1), in the JSON files and the database. `dev-data/data/importData2.js` copies the descriptions and review texts from the files into the database without touching anything else.
-  - Left: future start dates. They matter once the frontend shows dates (tour cards and the tour page, then bookings).
-  - Where: `dev-data/data/tours.json`, then the database. `importData2.js` only copies descriptions and review texts, so think about how to get new dates in without wiping anything.
+  - Done (2026-11-10): future start dates in `tours.json` and the database (checked: all 9 tours match). `dev-data/data/importDates.js` copies only `startDates` (`bulkWrite` + `$set`), so it's safe to re-run. The dates are all in 2027, sorted within each tour (the tour page circles the first one as the next trip), fit each tour's season, start at 9:00 local time at the start point, and never overlap: not between departures of one tour, and no guide is on two trips at once.
+  - Next time: the first tour runs out of future dates after Sep 11, 2027 (The Forest Hiker). Then: new dates in `tours.json`, and re-run `importDates.js`.
 - [ ] **4b. The tour stats leave tours out.** `GET /tours/stats` only counts tours rated 4.5 or more, and its `avgRating` is an average of each tour's average.
   - Why: the homepage's "By the numbers" shows these as the site's totals: every tour, every review, and the average rating across all of them. With the seed data, The Sports Lover (3.9) drops out of all three, so the counts come up short and the average looks better than it really is. And a tour with 3 reviews pulls the average as hard as one with 30.
   - Where: `getTourStats` in `controllers/tourController.js`.
@@ -93,6 +94,7 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 - [ ] **12. The rate limiter vs. the Next.js server.** The frontend calls the API from Vercel's servers, so many visitors share a few IP addresses, and 100 requests/hour on all of `/api` would lock everyone out.
   - Direction: which routes need strict limits (think brute-force login attempts) and which are harmless public reads? `express-rate-limit` can be applied per route or router.
 - [ ] **13. Start script.** `npm run prod` runs nodemon, a development tool. What should a production start command look like, and what does Render run by default?
+  - Also: `config.env` is gitignored, so Render won't have it. The error handler in `errorController.js` only answers when `NODE_ENV` is exactly `development` or `production`. What does a client get when a request fails and `NODE_ENV` is unset? Where should Render get it from, and should the handler cope with any other value?
 
 ### Small bugs and cleanup
 
