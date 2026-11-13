@@ -31,11 +31,11 @@ exports.signUp = async (req, res) => {
     status: "success",
     token,
     data: {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      photo: user.photo,
-      role: user.role,
+      _id: newUser._id,
+      name: newUser.name,
+      email: newUser.email,
+      photo: newUser.photo,
+      role: newUser.role,
     }
   })
 }

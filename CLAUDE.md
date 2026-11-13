@@ -64,6 +64,8 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 - [ ] **5. The signup response leaks the hashed password.**
   - Where: `signUp` in `controllers/authController.js`.
   - Direction: `password` has `select: false` in the schema. Which Mongoose operations does `select` affect, and is `create` one of them?
+  - Almost fixed (2026-11-13): signup and login now send only the fields a client needs. But signup's `data` reads `user._id`, `user.name`…, and its variable is `newUser`, so it throws a ReferenceError after the account is created, and the client gets a 500.
+  - Agreed with the frontend (2026-11-13): signup and login both answer `{ status, token, data: { _id, name, email, photo, role } }` (the user's fields directly in `data`). The frontend saves the name and photo in its session cookie at login, so the navbar never has to ask the API who you are.
 - [ ] **6. The password-reset email links to the API.** The user would land on raw JSON instead of a page.
   - Agreed with the frontend: the email links to `FRONTEND_URL/reset-password/<token>`; that page sends `PATCH /api/v1/users/resetPassword/:token`.
   - Where: `forgotPassword` in `authController.js`, plus a new env var.
@@ -101,10 +103,14 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
 
 - [ ] **14. `AppError` is used but never imported** in `controllers/tourController.js`. What happens when someone calls a geo endpoint without coordinates?
 - [ ] **15. Guide emails are public.** Every tour response includes its guides' email addresses. Where: the `populate` in `models/tourModel.js`. Which fields does a public visitor actually need?
-- [ ] **16. Login responds with 201.** What does 201 mean, and is anything created on login?
+- [x] **16. Login responds with 201.** What does 201 mean, and is anything created on login? Fixed (2026-11-13): 200.
 - [ ] **16b. Some responses say `"Success"`, every other one `"success"`.** Where: `updateMe`, `deleteMe` and the `createUser` stub in `controllers/userController.js`. Nothing breaks today, because the frontend checks the HTTP status (`res.ok`), not this field; it's about one spelling everywhere. Bonus question: `deleteMe` answers with a 204. What does the client actually receive from a 204, body included? (Look up what Express does with a body on 204.)
 - [ ] **17. (Optional) Consistent responses.** Payload keys vary (`data.docs`, `data.doc`, bare `data`, `data.user`; the `status` spelling is 16b). One convention makes the frontend simpler. Pagination would also benefit from a total count. (The slug endpoint that used to be here is now item 4c.)
 - [ ] **18. (Optional) Forgot-password reveals which emails have accounts** ("There's no user with that email address!"). Look up "user enumeration".
 - [ ] **19. (Optional) The API's `jwt` cookie is now unused.** The frontend stores the token itself (the BFF pattern), so the cookie is harmless but dead code.
+- [ ] **20. (Later) The token code is written four times.** `signUp`, `login`, `resetPassword` and `updatePassword` each sign a JWT, set the `jwt` cookie and send the reply. (Kareem's call on 2026-11-13: later.)
+  - Why: a fix made in one copy has to be repeated in the others, or they drift apart. Item 5's was: today signup and login send the user, and the two password routes don't.
+  - Where: `controllers/authController.js`.
+  - Direction: one helper that takes the user, the status code and `res`, signs the token, and sends the reply. The course calls it `createSendToken`. Which fields should it put in `data`, so every route answers the same agreed shape (item 5)? Item 19, the unused `jwt` cookie, is easy to drop at the same time.
 
 When a fix changes an endpoint the frontend uses, mention it in a frontend session so `../frontend/CLAUDE.md` stays accurate.
