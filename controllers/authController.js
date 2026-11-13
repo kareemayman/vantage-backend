@@ -30,7 +30,13 @@ exports.signUp = async (req, res) => {
   res.status(201).json({
     status: "success",
     token,
-    data: newUser,
+    data: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      photo: user.photo,
+      role: user.role,
+    }
   })
 }
 
@@ -54,9 +60,16 @@ exports.login = async (req, res, next) => {
     maxAge: parseInt(process.env.JWT_COOKIE_EXPIRES_IN) * 60 * 60 * 1000,
   })
 
-  res.status(201).json({
+  res.status(200).json({
     status: "success",
     token,
+    data: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      photo: user.photo,
+      role: user.role,
+    }
   })
 }
 
