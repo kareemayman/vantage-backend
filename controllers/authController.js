@@ -130,7 +130,7 @@ exports.forgotPassword = async (req, res, next) => {
   await user.save({ validateBeforeSave: false }) // save the user with the reset token and expiration date
 
   // Send it to user's email
-  const resetUrl = `${req.protocol}://${req.get("host")}/api/v1/users/resetPassword/${resetToken}`
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`
   try {
     await sendResetEmail(user.email, resetUrl)
     res.status(200).json({
@@ -184,6 +184,13 @@ exports.resetPassword = async (req, res, next) => {
   res.status(200).json({
     status: "success",
     token,
+    data: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      photo: user.photo,
+      role: user.role,
+    }
   })
 }
 

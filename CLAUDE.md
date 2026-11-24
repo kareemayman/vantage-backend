@@ -66,7 +66,7 @@ Roughly in the order the frontend needs them. Each item says what's wrong, why i
   - Direction: `password` has `select: false` in the schema. Which Mongoose operations does `select` affect, and is `create` one of them?
   - Almost fixed (2026-11-13): signup and login now send only the fields a client needs. But signup's `data` reads `user._id`, `user.name`…, and its variable is `newUser`, so it throws a ReferenceError after the account is created, and the client gets a 500.
   - Agreed with the frontend (2026-11-13): signup and login both answer `{ status, token, data: { _id, name, email, photo, role } }` (the user's fields directly in `data`). The frontend saves the name and photo in its session cookie at login, so the navbar never has to ask the API who you are.
-- [ ] **6. The password-reset email links to the API.** The user would land on raw JSON instead of a page.
+- [x] **6. The password-reset email links to the API.** The user would land on raw JSON instead of a page. Fixed (2026-11-24): the link is `${FRONTEND_URL}/reset-password/<token>`, with the whole address (protocol included) in `FRONTEND_URL`. Locally that's the Vantage dev server's address; on Render, set it to the Vercel address in the dashboard (`config.env` isn't committed).
   - Agreed with the frontend: the email links to `FRONTEND_URL/reset-password/<token>`; that page sends `PATCH /api/v1/users/resetPassword/:token`.
   - Where: `forgotPassword` in `authController.js`, plus a new env var.
   - Also: Resend's `onboarding@resend.dev` sender only delivers to your own account email. Real users need a verified domain (see Resend's docs).
